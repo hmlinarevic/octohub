@@ -5,7 +5,7 @@ require '../helpers.php';
 
 use api\Router;
 
-// istatiate the router
+// istantiate the router
 $router = new Router();
 
 // register routes
