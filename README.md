@@ -1,4 +1,4 @@
-### OctoHub 
+## OctoHub 
 
 - About: Demo CRM feature, view partners data in a table format
 - Author: Hrvoje Mlinarevic
