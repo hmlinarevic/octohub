@@ -18,7 +18,7 @@ import { getUniqueValuesByKey } from "../helpers";
 /**
  * Dedicated controls for table element.
  *
- * @returns {JSX.Element} Retruns dropdown, search bar and checkbox elements.
+ * @returns {JSX.Element} Returns dropdown, search bar and checkbox elements.
  */
 export default function TableControls({
   data,
