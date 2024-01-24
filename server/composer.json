@@ -1,0 +1,9 @@
+{
+  "name": "hrvoje/octohub",
+  "description": "Demo CRM feature: view partners",
+  "autoload": {
+    "psr-4": {
+      "api\\": "api/"
+    }
+  }
+}

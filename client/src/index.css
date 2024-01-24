@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  font-family: "Irish Grover", system-ui;
+}
+
+input[type="checkbox"] {
+  border: 0;
+  /* border:1px solid orange; */
+  outline: 1.5px solid rgb(163, 163, 163);
+  appearance: none;
+  width: 10px;
+  height: 10px;
+}
+
+input[type="checkbox"]:checked {
+  outline: 1.5px solid #333;
+  background: #B87FD9;
+}
+
