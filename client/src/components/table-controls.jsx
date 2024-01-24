@@ -68,7 +68,6 @@ export default function TableControls({
 
       <Checkbox
         fetchData={fetchData}
-        filteredData={filteredData}
         isResetControls={isResetControls}
       />
     </div>
