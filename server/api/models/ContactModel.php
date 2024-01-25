@@ -2,34 +2,38 @@
 
 namespace api\models;
 
+use api\models\EmailAddressModel;
+
 class ContactModel
 {
+  private static $preferEmailAddress = 'work';
+
   private static $contacts = [
     // contacts for Zero Innovations
     [
+      'id' => 1,
       'name' => 'Alice Johnson',
-      'email' => 'alicej@zeroinno.net',
       'phone number' => '(202) 555-0143',
       'company' => 'Zero Innovations',
       'date added' => '2022-09-19',
     ],
     [
+      'id' => 2,
       'name' => 'Andrea Johnson',
-      'email' => 'alicej@zeroinno.net',
       'phone number' => '(202) 555-0143',
       'company' => 'Zero Innovations',
       'date added' => '2022-09-19',
     ],
     [
+      'id' => 3,
       'name' => 'Bob Williams',
-      'email' => 'bobw@zeroinno.net',
       'phone number' => '(202) 555-0178',
       'company' => 'Zero Innovations',
       'date added' => '2024-01-18',
     ],
     [
+      'id' => 4,
       'name' => 'Carol Davis',
-      'email' => 'carold@zeroinno.net',
       'phone number' => '(202) 555-0234',
       'company' => 'Zero Innovations',
       'date added' => '2022-09-19',
@@ -37,22 +41,22 @@ class ContactModel
 
     // contacts for Tolstoy's Brews
     [
+      'id' => 5,
       'name' => 'David Smith',
-      'email' => 'davids@tolstoysbrews.com',
       'phone number' => '(303) 555-0198',
       'company' => "Tolstoy's Brews",
       'date added' => '2024-01-18',
     ],
     [
+      'id' => 6,
       'name' => 'Emma Johnson',
-      'email' => 'emmaj@tolstoysbrews.com',
       'phone number' => '(303) 555-0271',
       'company' => "Tolstoy's Brews",
       'date added' => '2022-09-19',
     ],
     [
+      'id' => 7,
       'name' => 'Frank Brown',
-      'email' => 'frankb@tolstoysbrews.com',
       'phone number' => '(303) 555-0322',
       'company' => "Tolstoy's Brews",
       'date added' => '2024-01-18',
@@ -60,22 +64,22 @@ class ContactModel
 
     // contacts for Whacky Widgets
     [
+      'id' => 8,
       'name' => 'Grace Miller',
-      'email' => 'gracem@whackywidgets.com',
       'phone number' => '(404) 555-0487',
       'company' => 'Whacky Widgets',
       'date added' => '2024-01-18',
     ],
     [
+      'id' => 9,
       'name' => 'Henry Davis',
-      'email' => 'henryd@whackywidgets.com',
       'phone number' => '(404) 555-0536',
       'company' => 'Whacky Widgets',
       'date added' => '2024-01-18',
     ],
     [
+      'id' => 10,
       'name' => 'Isabella Wilson',
-      'email' => 'isabellaw@whackywidgets.com',
       'phone number' => '(404) 555-0674',
       'company' => 'Whacky Widgets',
       'date added' => '2024-01-18',
@@ -83,22 +87,22 @@ class ContactModel
 
     // contacts for Quantum Quirks
     [
+      'id' => 11,
       'name' => 'Jacob Moore',
-      'email' => 'jacobm@quantumquirks.org',
       'phone number' => '(505) 555-0712',
       'company' => 'Quantum Quirks',
       'date added' => '2024-01-18',
     ],
     [
+      'id' => 12,
       'name' => 'Lily Johnson',
-      'email' => 'lilyj@quantumquirks.org',
       'phone number' => '(505) 555-0849',
       'company' => 'Quantum Quirks',
       'date added' => '2022-09-19',
     ],
     [
+      'id' => 13,
       'name' => 'Mason Lee',
-      'email' => 'masonl@quantumquirks.org',
       'phone number' => '(505) 555-0998',
       'company' => 'Quantum Quirks',
       'date added' => '2024-01-18',
@@ -106,36 +110,50 @@ class ContactModel
 
     // contacts for Galactic Gears
     [
+      'id' => 14,
       'name' => 'Nora Clark',
-      'email' => 'norac@galacticgears.com',
       'phone number' => '(606) 555-0114',
       'company' => 'Galactic Gears',
       'date added' => '2022-09-19',
     ],
     [
+      'id' => 15,
       'name' => 'Oliver Martin',
-      'email' => 'oliverm@galacticgears.com',
       'phone number' => '(606) 555-0223',
       'company' => 'Galactic Gears',
       'date added' => '2024-01-18',
     ],
     [
+      'id' => 16,
       'name' => 'Peyton Harris',
-      'email' => 'peytonh@galacticgears.com',
       'phone number' => '(606) 555-0332',
       'company' => 'Galactic Gears',
       'date added' => '2022-09-19',
     ]
   ];
 
-
   /**
-   * Retrieves all contacts from the static property.
+   * Retrieves all contacts with preferred email addresses.
    *
    * @return array An array of all contacts
    */
   public static function all()
   {
-    return self::$contacts;
+    $results = [];
+
+    // email lookup
+    foreach (self::$contacts as $contact) {
+      // find the related email address
+      $email = EmailAddressModel::find(
+        $contact['id'],
+        self::$preferEmailAddress
+      );
+
+      // copy fields and add a new 'email' field
+      $contactWithEmail = array_merge($contact, ['email' => $email]);
+      $results[] = $contactWithEmail;
+    }
+
+    return $results;
   }
 }
